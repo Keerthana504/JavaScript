@@ -1,11 +1,19 @@
 // Fibonacci sequence
 
+// const fibonacciSequence = (n) => {
+//   const series = [0, 1];
+//   for (i = 2; i < n; i++) {
+//     series[i] = series[i - 1] + series[i - 2];
+//   }
+//   return series;
+// };
+
 const fibonacciSequence = (n) => {
-  const series = [0, 1];
-  for (i = 2; i < n; i++) {
-    series[i] = series[i - 1] + series[i - 2];
+  let num;
+  if (n < 2) {
+    return (num = n);
   }
-  return series;
+  return (num = fibonacciSequence(n - 1) + fibonacciSequence(n - 2));
 };
 
 //Time complexity - O(n)
@@ -261,3 +269,215 @@ largestOfFour([
   [32, 35, 97, 39],
   [1000000, 1001, 857, 1],
 ]);
+
+//check if a number is prime or not
+const primeNum = (n) => {
+  if (n === 2 || n % 2 === 1) {
+    console.log(n, "Its Prime");
+  } else {
+    console.log(n, "Its not Prime");
+  }
+};
+
+primeNum(2);
+primeNum(29);
+primeNum(38);
+primeNum(1782);
+
+//number is power of 2
+const powerofTwo = (n) => {
+  if (n < 1) {
+    return false;
+  }
+  while (n > 1) {
+    if (n % 2 !== 0) {
+      return false;
+    }
+    n = n / 2;
+  }
+  return true;
+};
+
+// Big- 0 - o(logn)
+console.log(powerofTwo(3));
+console.log(powerofTwo(16));
+console.log(powerofTwo(56));
+console.log(powerofTwo(128));
+
+// linear search
+const linearSearch = (arr, findNum) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === findNum) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+let arr = [-5, 2, 15, 28, 56];
+console.log(linearSearch(arr, 6));
+console.log(linearSearch(arr, 56));
+console.log(linearSearch(arr, 15));
+
+// Big O --> o(n)
+
+// binary search
+const binarySearch = (arr, target) => {
+  let pivot = arr.length / 2 - 1;
+  if (arr[pivot] === target) {
+    console.log("middle");
+    return pivot;
+  } else if (target < arr[pivot]) {
+    for (i = 0; i < pivot; i++) {
+      if (arr[i] === target) {
+        console.log("first");
+        return i;
+      }
+    }
+  } else if (target > arr[pivot]) {
+    for (i = pivot + 1; i < arr.length; i++) {
+      if (arr[i] === target) {
+        console.log("second");
+        return i;
+      }
+    }
+  }
+  return -1;
+};
+
+let arr1 = [-5, 2, 4, 6, 10, 19];
+
+console.log(binarySearch(arr1, -100));
+console.log(binarySearch(arr1, 4));
+console.log(binarySearch(arr1, 19));
+console.log(binarySearch(arr1, 2));
+console.log(binarySearch(arr1, 100));
+
+//recursive binary search
+const recuBinarySearch = (arr, target) => {
+  return search(arr, target, 0, arr.length - 1);
+};
+
+function search(arr, target, leftIndex, rightIndex) {
+  let middleIndex = Math.floor((leftIndex + rightIndex) / 2);
+  if (leftIndex > rightIndex) {
+    return -1;
+  }
+  if (arr[middleIndex] === target) {
+    return middleIndex;
+  }
+  if (target < arr[middleIndex]) {
+    return search(arr, target, leftIndex, middleIndex - 1);
+  } else {
+    return search(arr, target, middleIndex + 1, rightIndex);
+  }
+}
+
+let arr2 = [-5, 2, 4, 6, 10, 19];
+
+// Big O --> o(logn)
+
+console.log(recuBinarySearch(arr2, -100));
+console.log(recuBinarySearch(arr2, 4));
+console.log(recuBinarySearch(arr2, 19));
+console.log(recuBinarySearch(arr2, 2));
+console.log(recuBinarySearch(arr2, 100));
+
+//bubble sort
+const bubbleSort = (arr) => {
+  let swapItem;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > arr[i + 1]) {
+      swapItem = arr[i];
+      arr[i] = arr[i + 1];
+      arr[i + 1] = swapItem;
+    }
+  }
+  return !swapItem ? arr : bubbleSort(arr);
+};
+
+console.log(bubbleSort([9, 78, 653, 56, 21, 17, 2]));
+
+//Big O -> o(n^2);
+
+//interstion Sort
+// const insertionSort = (arr) => {
+//   for (let i = 1; i < arr.length; i++) {
+//     let numToInsert = arr[i];
+//     let j = i - 1;
+//     while (j >= 0 && arr[j] > numToInsert) {
+//       // let temp = arr[j];
+//       arr[j + 1] = arr[j];
+//       j = j - 1;
+//     }
+//     arr[j + 1] = numToInsert;
+//   }
+//   return arr;
+// };
+
+const insertionSort = (arr) => {
+  for (let i = 1; i < arr.length; i++) {
+    let j = i - 1;
+    let insertNum = arr[i];
+    //console.log("I ", "i- " + i, "j-" + j, " ", insertNum, arr);
+    while (j >= 0 && arr[j] > insertNum) {
+      arr[j + 1] = arr[j];
+      j = j - 1;
+      // console.log("II ", "i- " + i, "j-" + j, " ", insertNum, arr);
+    }
+    arr[j + 1] = insertNum;
+    // console.log("III ", "i- " + i, "j-" + j, " ", insertNum, arr);
+  }
+  return arr;
+};
+console.log(insertionSort([9, 78, 653, 56, 21, 17, 2]));
+
+// quick sort
+const quickSort = (arr) => {
+  if (arr.length <= 1) {
+    return arr;
+  }
+  let pivot = arr[Math.floor(arr.length / 2)];
+  let leftArr = [];
+  let rightArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] !== pivot) {
+      if (arr[i] < pivot) {
+        leftArr.push(arr[i]);
+      } else {
+        rightArr.push(arr[i]);
+      }
+    }
+  }
+  return [...quickSort(leftArr), pivot, ...quickSort(rightArr)];
+};
+
+console.log(quickSort([9, 78, 653, 56, 21, 17, 2]));
+
+//merge sort
+const mergeSort = (arr) => {
+  // console.log("1 ", arr);
+  if (arr.length < 2) {
+    return arr;
+  }
+  const mid = Math.floor(arr.length / 2);
+  const leftArr = arr.slice(0, mid);
+  const rightArr = arr.slice(mid);
+  return merge(mergeSort(leftArr), mergeSort(rightArr));
+};
+
+function merge(leftArr, rightArr) {
+  // console.log("2 ", leftArr, rightArr);
+  const sortedArr = [];
+  while (leftArr.length && rightArr.length) {
+    if (leftArr[0] <= rightArr[0]) {
+      sortedArr.push(leftArr.shift());
+    } else {
+      sortedArr.push(rightArr.shift());
+    }
+    // console.log("3 ", sortedArr);
+  }
+  return [...sortedArr, ...leftArr, ...rightArr];
+}
+
+console.log(mergeSort([9, 78, 653, 56, 21, 17, 2]));
